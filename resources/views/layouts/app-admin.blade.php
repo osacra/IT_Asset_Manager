@@ -43,10 +43,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link rounded p-2" href="#">
+                            <a class="nav-link rounded p-2 {{ Request::is('categorias*') ? 'active' : '' }}" href="{{ route('categorias.index') }}">
                                 <i class="bi bi-tags me-2"></i> Categorias
                             </a>
-                        </li>
+                        </li>   
                         <li class="nav-item">
                             <a class="nav-link rounded p-2" href="#">
                                 <i class="bi bi-laptop me-2"></i> Ativos
