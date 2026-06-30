@@ -48,7 +48,7 @@
                             </a>
                         </li>   
                         <li class="nav-item">
-                            <a class="nav-link rounded p-2" href="#">
+                            <a class="nav-link rounded p-2 {{ Request::is('ativos*') ? 'active' : '' }}" href="{{ route('ativos.index') }}">
                                 <i class="bi bi-laptop me-2"></i> Ativos
                             </a>
                         </li>

@@ -9,6 +9,7 @@ use App\Http\Requests\AtivoRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Controllers\Controller;
 
 class AtivoController extends Controller
 {
@@ -16,8 +17,7 @@ class AtivoController extends Controller
 
     public function __construct()
     {
-        // Garante que apenas regras de visualização fiquem abertas para técnicos se necessário via Policy
-        $this->authorizeResource(Ativo::class, 'ativo');
+        
     }
 
     public function index(): View
