@@ -1,7 +1,7 @@
 IT Asset Manager — Sistema de Gestão de Ativos de TI
 Descrição da Aplicação
 
-O IT Asset Manager é uma aplicação web desenvolvida em Laravel 12 (PHP 8.3+), utilizando MySQL, Laragon e Bootstrap 5, com apoio do Laravel Boost (Vibe Coding).
+O IT Asset Manager é uma aplicação web desenvolvida em Laravel 13 (PHP 8.3+), utilizando MySQL, Laragon e Bootstrap 5, com apoio do Laravel Boost (Vibe Coding).
 
 O sistema resolve problemas de controle manual de ativos de TI, como planilhas desatualizadas, falta de rastreabilidade e ausência de histórico de movimentações.
 

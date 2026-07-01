@@ -13,7 +13,7 @@ Baixa confiabilidade dos dados
 
 A proposta do sistema é centralizar e automatizar a gestão de ativos de TI, garantindo integridade, histórico completo e controle de acesso baseado em perfis.
 
-O desenvolvimento foi realizado utilizando Laravel 12 com arquitetura MVC e boas práticas de engenharia de software.
+O desenvolvimento foi realizado utilizando Laravel 13 com arquitetura MVC e boas práticas de engenharia de software.
 
 2. Objetivo da Aplicação
 
