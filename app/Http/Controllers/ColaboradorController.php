@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Colaborador;
 use App\Http\Requests\ColaboradorRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ColaboradorController extends Controller
@@ -14,7 +16,7 @@ class ColaboradorController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Colaborador::class, 'colaborador');
+        
     }
 
     public function index(): View
