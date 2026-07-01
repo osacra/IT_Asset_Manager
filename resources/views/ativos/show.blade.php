@@ -18,7 +18,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span class="text-muted">Status Atual:</span>
-                            <span class="badge bg-info text-dark">{{ $ativo->statusAtivo->nome }}</span>
+                            <span class="badge bg-info text-dark">{{ $ativo->status->nome }}</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span class="text-muted">Categoria:</span>

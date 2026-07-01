@@ -44,7 +44,7 @@
                                 <td>{{ $ativo->categoria->nome }}</td>
                                 <td>
                                     @php
-                                        $statusColor = match($ativo->statusAtivo->nome) {
+                                        $statusColor = match($ativo->status->nome) {
                                             'Disponível' => 'success',
                                             'Em uso' => 'primary',
                                             'Em manutenção' => 'warning',
@@ -52,14 +52,12 @@
                                             default => 'secondary'
                                         };
                                     @endphp
-                                    <span class="badge bg-{{ $statusColor }}">{{ $ativo->statusAtivo->nome }}</span>
+                                    <span class="badge bg-{{ $statusColor }}">{{ $ativo->status->nome }}</span>
                                 </td>
                                 <td>{{ $ativo->localizacao }}</td>
                                 <td class="text-end">
                                     <div class="btn-group">
-                                        <a href="{{ route('ativos.show', $ativo) }}" class="btn btn-sm btn-outline-info" title="Detalhes">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                        
                                         @can('update', $ativo)
                                             <a href="{{ route('ativos.edit', $ativo) }}" class="btn btn-sm btn-outline-primary" title="Editar">
                                                 <i class="fas fa-edit"></i>

@@ -23,7 +23,7 @@ class AtivoController extends Controller
     public function index(): View
     {
         // Eager loading para evitar o problema de N+1 consultas no banco
-        $ativos = Ativo::with(['categoria', 'statusAtivo'])->paginate(10);
+        $ativos = Ativo::with(['categoria', 'status'])->paginate(10);
         return view('ativos.index', compact('ativos'));
     }
 
