@@ -16,7 +16,7 @@ class ColaboradorController extends Controller
 
     public function __construct()
     {
-        
+        $this->authorizeResource(Colaborador::class, 'colaborador');
     }
 
     public function index(): View

@@ -17,7 +17,7 @@ class AtivoController extends Controller
 
     public function __construct()
     {
-        
+        $this->authorizeResource(Ativo::class, 'ativo');
     }
 
     public function index(): View
