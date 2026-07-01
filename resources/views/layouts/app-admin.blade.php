@@ -58,8 +58,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link rounded p-2" href="#">
-                                <i class="bi bi-arrow-left-right me-2"></i> Empréstimos
+                            <a class="nav-link rounded p-2 {{ Request::is('emprestimos*') ? 'active' : '' }}" href="{{ route('emprestimos.index') }}">
+                                <i class="fas fa-handshake me-2"></i> Empréstimos
                             </a>
                         </li>
                         <li class="nav-item">

@@ -17,6 +17,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categorias', CategoriaController::class)->except(['show']); 
     Route::resource('ativos', AtivoController::class)->except(['show']);
     Route::resource('colaboradores', ColaboradorController::class)->except(['show']);
+    Route::get('emprestimos', [EmprestimoController::class, 'index'])->name('emprestimos.index');
+    Route::get('emprestimos/create', [EmprestimoController::class, 'create'])->name('emprestimos.create');
+    Route::post('emprestimos', [EmprestimoController::class, 'store'])->name('emprestimos.store');
+    Route::patch('emprestimos/{emprestimo}/devolver', [EmprestimoController::class, 'devolver'])->name('emprestimos.devolver');
 });
 
 Route::middleware('auth')->group(function () {
