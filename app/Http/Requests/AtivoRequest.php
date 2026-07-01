@@ -29,4 +29,15 @@ class AtivoRequest extends FormRequest
             'observacoes'     => ['nullable', 'string', 'max:1000'],
         ];
     }
+    
+    public function messages(): array
+    {
+        return [
+            'patrimonio.required' => 'O número de patrimônio é obrigatório.',
+            'patrimonio.unique'   => 'Este número de patrimônio já está cadastrado no sistema.',
+            'categoria_id.required' => 'Selecione uma categoria válida.',
+            'status_ativo_id.required' => 'Selecione um status válido.',
+            'data_aquisicao.before_or_equal' => 'A data de aquisição não pode ser uma data futura.',
+        ];
+    }
 }
