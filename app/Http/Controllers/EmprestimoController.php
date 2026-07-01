@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EmprestimoController extends Controller
 {
+    use AuthorizesRequests;
+
+    public function __construct()
+    {
+        $this->authorizeResource(Emprestimo::class, 'emprestimo');
+    }
+
     public function index(): View
     {
-        // Eager loading para evitar N+1 queries
         $emprestimos = Emprestimo::with(['ativo', 'colaborador', 'usuario'])
-            ->orderBy('data_retorno', 'asc') 
+            ->orderBy('data_retorno', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -28,10 +35,12 @@ class EmprestimoController extends Controller
 
     public function create(): View
     {
-        // Só permite emprestar ativos que estejam com status 'Disponível'
         $statusDisponivel = StatusAtivo::where('nome', 'Disponível')->first();
-        $ativos = Ativo::where('status_ativo_id', $statusDisponivel->id)->orderBy('nome', 'asc')->get();
-        
+
+        $ativos = Ativo::where('status_ativo_id', $statusDisponivel->id)
+            ->orderBy('nome', 'asc')
+            ->get();
+
         $colaboradores = Colaborador::orderBy('nome', 'asc')->get();
 
         return view('emprestimos.create', compact('ativos', 'colaboradores'));
@@ -42,14 +51,14 @@ class EmprestimoController extends Controller
         $statusEmUso = StatusAtivo::where('nome', 'Em uso')->first();
         $ativo = Ativo::findOrFail($request->ativo_id);
 
-        // Proteção extra contra concorrência: verificar se o ativo não foi levado por outro usuário segundos antes
         if ($ativo->statusAtivo->nome !== 'Disponível') {
-            return redirect()->back()->withInput()->with('error', 'Este ativo já não está mais disponível para empréstimo.');
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Este ativo já não está mais disponível.');
         }
 
-        // ACID Transaction: Salva tudo ou desfaz tudo em caso de falha elétrica/banco
         DB::transaction(function () use ($request, $ativo, $statusEmUso) {
-            // 1. Criar o registro do Empréstimo
             Emprestimo::create([
                 'ativo_id'       => $request->ativo_id,
                 'colaborador_id' => $request->colaborador_id,
@@ -58,11 +67,14 @@ class EmprestimoController extends Controller
                 'observacoes'    => $request->observacoes,
             ]);
 
-            // 2. Atualizar o status do Ativo para 'Em uso'
-            $ativo->update(['status_ativo_id' => $statusEmUso->id]);
+            $ativo->update([
+                'status_ativo_id' => $statusEmUso->id
+            ]);
         });
 
-        return redirect()->route('emprestimos.index')->with('success', 'Empréstimo registrado e status do ativo atualizado!');
+        return redirect()
+            ->route('emprestimos.index')
+            ->with('success', 'Empréstimo registrado com sucesso!');
     }
 
     public function devolver(Request $request, Emprestimo $emprestimo): RedirectResponse
@@ -70,17 +82,17 @@ class EmprestimoController extends Controller
         $statusDisponivel = StatusAtivo::where('nome', 'Disponível')->first();
 
         DB::transaction(function () use ($emprestimo, $statusDisponivel) {
-            // 1. Atualizar o registro do empréstimo com a data de retorno
             $emprestimo->update([
                 'data_retorno' => now(),
             ]);
 
-            // 2. Atualizar o status do ativo de volta para 'Disponível'
             $emprestimo->ativo->update([
                 'status_ativo_id' => $statusDisponivel->id
             ]);
         });
 
-        return redirect()->route('emprestimos.index')->with('success', 'Devolução concluída! O ativo retornou ao estoque disponível.');
+        return redirect()
+            ->route('emprestimos.index')
+            ->with('success', 'Devolução realizada com sucesso!');
     }
 }
