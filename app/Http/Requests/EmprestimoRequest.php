@@ -16,7 +16,7 @@ class EmprestimoRequest extends FormRequest
         return [
             'ativo_id'       => ['required', 'exists:ativos,id'],
             'colaborador_id' => ['required', 'exists:colaboradores,id'],
-            'data_retirada'  => ['required', 'date', 'before_or_equal:today'],
+            'data_emprestimo' => ['required', 'date', 'before_or_equal:today'],
             'observacoes'    => ['nullable', 'string', 'max:500'],
         ];
     }
@@ -26,7 +26,7 @@ class EmprestimoRequest extends FormRequest
         return [
             'ativo_id.required'       => 'Selecione um ativo para empréstimo.',
             'colaborador_id.required' => 'Selecione o colaborador que receberá o ativo.',
-            'data_retirada.required'  => 'A data de retirada é obrigatória.',
+            'data_emprestimo.required'  => 'A data de empréstimo é obrigatória.',
         ];
     }
 }

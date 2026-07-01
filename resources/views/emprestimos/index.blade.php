@@ -41,7 +41,7 @@
                                     <div class="fw-bold">{{ $emprestimo->colaborador->nome }}</div>
                                     <small class="text-muted">{{ $emprestimo->colaborador->departamento }}</small>
                                 </td>
-                                <td>{{ \Carbon\Carbon::parse($emprestimo->data_retirada)->format('d/m/Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($emprestimo->data_emprestimo)->format('d/m/Y') }}</td>
                                 <td>
                                     @if($emprestimo->data_retorno)
                                         <span class="badge bg-success">

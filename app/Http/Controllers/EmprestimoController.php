@@ -51,7 +51,7 @@ class EmprestimoController extends Controller
         $statusEmUso = StatusAtivo::where('nome', 'Em uso')->first();
         $ativo = Ativo::findOrFail($request->ativo_id);
 
-        if ($ativo->statusAtivo->nome !== 'Disponível') {
+        if ($ativo->status->nome !== 'Disponível') {
             return redirect()
                 ->back()
                 ->withInput()
@@ -63,7 +63,7 @@ class EmprestimoController extends Controller
                 'ativo_id'       => $request->ativo_id,
                 'colaborador_id' => $request->colaborador_id,
                 'usuario_id'     => Auth::id(),
-                'data_retirada'  => $request->data_retirada,
+                'data_emprestimo' => $request->data_emprestimo,
                 'observacoes'    => $request->observacoes,
             ]);
 

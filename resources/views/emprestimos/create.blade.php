@@ -50,8 +50,8 @@
                     {{-- Data de Retirada --}}
                     <div class="col-md-4">
                         <label class="form-label fw-bold small text-muted">Data da Entrega *</label>
-                        <input type="date" name="data_retirada" class="form-control @error('data_retirada') is-invalid @enderror" value="{{ old('data_retirada', date('Y-m-d')) }}">
-                        @error('data_retirada') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                        <input type="date" name="data_emprestimo" class="form-control @error('data_emprestimo') is-invalid @enderror" value="{{ old('data_emprestimo', date('Y-m-d')) }}">
+                        @error('data_emprestimo') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
                     {{-- Observações --}}

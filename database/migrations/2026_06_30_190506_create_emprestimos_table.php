@@ -18,7 +18,7 @@ return new class extends Migration
             
             // Datas e Controle
             $table->dateTime('data_emprestimo');
-            $table->date('previsao_devolucao');
+            $table->date('previsao_devolucao')->nullable();
             $table->dateTime('data_devolucao')->nullable(); // Nulo enquanto estiver emprestado
             $table->text('observacoes')->nullable();
             
