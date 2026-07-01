@@ -1,58 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+IT Asset Manager — Sistema de Gestão de Ativos de TI
+Descrição da Aplicação
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+O IT Asset Manager é uma aplicação web desenvolvida em Laravel 12 (PHP 8.3+), utilizando MySQL, Laragon e Bootstrap 5, com apoio do Laravel Boost (Vibe Coding).
 
-## About Laravel
+O sistema resolve problemas de controle manual de ativos de TI, como planilhas desatualizadas, falta de rastreabilidade e ausência de histórico de movimentações.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A aplicação permite gerenciar:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ativos de TI (notebooks, monitores, periféricos, etc.)
+Categorias de ativos
+Colaboradores
+Empréstimos e devoluções
+Histórico completo de movimentações
+Usuários de Teste (Seeders)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Os usuários abaixo são criados automaticamente via DatabaseSeeder:
 
-## Learning Laravel
+Perfil: Administrador
+E-mail: admin@empresa.com
+Senha: password
+Permissões: acesso total ao sistema (CRUDs, usuários, histórico e configurações)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Perfil: Técnico
+E-mail: tecnico@empresa.com
+Senha: password
+Permissões: acesso operacional (visualização, empréstimos e devoluções)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Tecnologias Utilizadas
+Backend: Laravel 12 (PHP 8.3+)
+Frontend: Blade + Bootstrap 5 + FontAwesome
+Banco de Dados: MySQL (Laragon)
+Ambiente Local: Laragon + Apache
+ORM: Eloquent ORM
+Segurança: Policies + Form Requests (RBAC)
+Arquitetura: MVC com Services quando necessário
+IA Assistida: Laravel Boost (Vibe Coding)
+Auditoria: Eloquent Observers
+Instalação e Execução
+1. Clonar o repositório
+git clone <url-do-repositorio>
+cd IT_Asset_Manager
+2. Instalar dependências
+composer install
+3. Configurar ambiente
+cp .env.example .env
+php artisan key:generate
+4. Configurar banco de dados (.env)
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=it_asset_manager
+DB_USERNAME=root
+DB_PASSWORD=
 
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
+5. Executar migrations e seeders
+php artisan migrate --seed
+6. Instalar Laravel Boost (opcional após estrutura pronta)
 php artisan boost:install
-```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Observação: durante a instalação, selecione manualmente:
 
-## Contributing
+guidelines
+skills
+mcp (opcional)
+7. Iniciar servidor
+php artisan serve
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Acesso:
+http://127.0.0.1:8000
 
-## Code of Conduct
+Estrutura do Projeto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+IT_Asset_Manager/
+├── .boost/
+│ └── skills/
+├── app/
+│ ├── Http/
+│ ├── Models/
+│ ├── Policies/
+│ └── Observers/
+├── database/
+│ ├── migrations/
+│ └── seeders/
+├── resources/
+│ ├── views/
+│ └── layouts/
+├── routes/
+├── tests/
+├── README.md
+├── RELATORIO.md
+├── PLANO_IMPLEMENTACAO.md
+└── .env
 
-## Security Vulnerabilities
+Regras de Negócio
+Controle de Acesso (RBAC)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Administrador:
 
-## License
+CRUD completo
+Gerenciamento de usuários
+Pode excluir registros
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Técnico:
+
+Apenas leitura de cadastros
+Pode registrar empréstimos e devoluções
+Não pode excluir ou editar dados críticos
+Regras de Ativos
+Um ativo pertence a uma única categoria
+Um ativo possui apenas um status ativo por vez
+Não pode existir mais de um empréstimo ativo para o mesmo ativo
+Empréstimos e Devoluções
+
+Ao criar um empréstimo:
+
+Status do ativo muda automaticamente para "Em uso"
+
+Ao registrar devolução:
+
+Data de devolução é preenchida
+Status muda para "Disponível"
+Registro é salvo no histórico
+Auditoria
+Todas as movimentações importantes são registradas no histórico
+Histórico é imutável (não pode ser editado ou deletado)
+Implementado via Observers do Eloquent
+Documentos do Projeto
+README.md: instruções de execução
+PLANO_IMPLEMENTACAO.md: planejamento do sistema
+RELATORIO.md: relatório acadêmico
+.boost/skills/: regras do Laravel Boost
