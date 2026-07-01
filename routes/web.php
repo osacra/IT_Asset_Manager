@@ -15,6 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::resource('categorias', CategoriaController::class)->except(['show']); 
     Route::resource('ativos', AtivoController::class)->except(['show']);
+    Route::resource('colaboradores', ColaboradorController::class)->except(['show']);
 });
 
 Route::middleware('auth')->group(function () {

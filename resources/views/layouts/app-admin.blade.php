@@ -53,8 +53,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link rounded p-2" href="#">
-                                <i class="bi bi-people me-2"></i> Colaboradores
+                            <a class="nav-link rounded p-2 {{ Request::is('colaboradores*') ? 'active' : '' }}" href="{{ route('colaboradores.index') }}">
+                                <i class="fas fa-users me-2"></i> Colaboradores
                             </a>
                         </li>
                         <li class="nav-item">
