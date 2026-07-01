@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AtivoController;
 use App\Http\Controllers\EmprestimoController;
 use App\Http\Controllers\ColaboradorController;
+use App\Http\Controllers\HistoricoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('emprestimos/create', [EmprestimoController::class, 'create'])->name('emprestimos.create');
     Route::post('emprestimos', [EmprestimoController::class, 'store'])->name('emprestimos.store');
     Route::patch('emprestimos/{emprestimo}/devolver', [EmprestimoController::class, 'devolver'])->name('emprestimos.devolver');
+    Route::get('historico', [HistoricoController::class, 'index'])->name('historicos.index');
 });
 
 Route::middleware('auth')->group(function () {

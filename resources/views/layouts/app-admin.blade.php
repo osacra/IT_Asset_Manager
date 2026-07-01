@@ -63,8 +63,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link rounded p-2" href="#">
-                                <i class="bi bi-clock-history me-2"></i> Histórico
+                            <a class="nav-link rounded p-2 {{ Request::is('historico*') ? 'active' : '' }}" href="{{ route('historicos.index') }}">
+                                <i class="fas fa-history me-2"></i> Histórico Geral
                             </a>
                         </li>
                     </ul>
