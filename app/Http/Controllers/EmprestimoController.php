@@ -26,7 +26,7 @@ class EmprestimoController extends Controller
     public function index(): View
     {
         $emprestimos = Emprestimo::with(['ativo', 'colaborador', 'usuario'])
-            ->orderBy('data_retorno', 'asc')
+            ->orderBy('data_devolucao', 'asc')
             ->orderBy('created_at', 'desc')
             ->paginate(15);
 
@@ -83,7 +83,7 @@ class EmprestimoController extends Controller
 
         DB::transaction(function () use ($emprestimo, $statusDisponivel) {
             $emprestimo->update([
-                'data_retorno' => now(),
+                'data_devolucao' => now(),
             ]);
 
             $emprestimo->ativo->update([
