@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             StatusAtivoSeeder::class,
             UserSeeder::class,
+            CategoriaSeeder::class,
+            ColaboradorSeeder::class,
+            AtivoSeeder::class,
+            EmprestimoSeeder::class,
+            HistoricoMovimentacaoSeeder::class,
         ]);
     }
 }
