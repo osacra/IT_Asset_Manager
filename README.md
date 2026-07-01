@@ -23,14 +23,14 @@ Os usuários abaixo são criados automaticamente via `DatabaseSeeder`.
 ### Administrador
 
 - **E-mail:** admin@empresa.com
-- **Senha:** password
+- **Senha:** senha123
 - **Perfil:** Administrador
 - **Permissões:** acesso total ao sistema.
 
 ### Técnico
 
 - **E-mail:** tecnico@empresa.com
-- **Senha:** password
+- **Senha:** senha123
 - **Perfil:** Técnico
 - **Permissões:** operações de empréstimos e devoluções.
 
