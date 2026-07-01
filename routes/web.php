@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AtivoController;
+use App\Http\Controllers\EmprestimoController;
 use App\Http\Controllers\ColaboradorController;
 use Illuminate\Support\Facades\Route;
 
