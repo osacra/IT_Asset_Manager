@@ -2,6 +2,18 @@
 
 IT Asset Manager is a Laravel application for controlling IT assets, loans, returns and movement history. It was designed to replace fragmented spreadsheet-based workflows with a system that provides traceability, role-based access and explicit business rules.
 
+## Domain preview
+
+![IT Asset Manager domain flow](docs/screenshots/domain-flow.png)
+
+The diagram summarizes the central workflow: authenticated users operate on assets, employees and loans, while returns update availability and movement history is recorded for auditability.
+
+## Dashboard preview
+
+![IT Asset Manager dashboard](docs/screenshots/dashboard.webp)
+
+This local preview uses seeded demonstration data and shows the inventory summary, recent loans and movement history. It is intended for portfolio inspection only; the credentials and data belong to a local development environment.
+
 ## What the system solves
 
 The application centralizes the lifecycle of notebooks, monitors and other IT assets. It records who is responsible for an asset, when it was borrowed, when it was returned and which actions changed its state.
