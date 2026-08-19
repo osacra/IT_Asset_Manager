@@ -1,183 +1,96 @@
-# IT Asset Manager — Sistema de Gestão de Ativos de TI
+# IT Asset Manager
 
-## Descrição da Aplicação
+IT Asset Manager is a Laravel application for controlling IT assets, loans, returns and movement history. It was designed to replace fragmented spreadsheet-based workflows with a system that provides traceability, role-based access and explicit business rules.
 
-O **IT Asset Manager** é uma aplicação web desenvolvida em **Laravel 13 (PHP 8.3+)**, utilizando **MySQL**, **Laragon** e **Bootstrap 5**, com apoio do **Laravel Boost (Vibe Coding)**.
+## What the system solves
 
-O sistema resolve problemas de controle manual de ativos de TI, como planilhas desatualizadas, falta de rastreabilidade e ausência de histórico de movimentações.
+The application centralizes the lifecycle of notebooks, monitors and other IT assets. It records who is responsible for an asset, when it was borrowed, when it was returned and which actions changed its state.
 
-A aplicação permite gerenciar:
+## Main capabilities
 
-- Ativos de TI (notebooks, monitores, periféricos etc.)
-- Categorias de ativos
-- Colaboradores
-- Empréstimos e devoluções
-- Histórico de movimentações
+- Asset, category and employee management.
+- Loan and return workflows with automatic status changes.
+- Role-based access control for administrators and technicians.
+- Authentication and protected application routes.
+- Movement history and audit records through Eloquent Observers.
+- Seeded local data for a reproducible demonstration environment.
+- MVC organization following Laravel conventions.
 
----
+## Business rules
 
-## Usuários de Teste (Seeders)
+| Domain rule | Expected behavior |
+|---|---|
+| Asset ownership | Every asset belongs to an asset category. |
+| Active loan | An asset cannot have more than one active loan. |
+| New loan | The asset status changes to **In use**. |
+| Return | The return date is recorded and the asset becomes **Available**. |
+| Audit | Asset movements are recorded in the history. |
+| Technician role | Technicians can consult records and operate loans and returns. |
+| Administrator role | Administrators have full CRUD and user-management access. |
 
-Os usuários abaixo são criados automaticamente via `DatabaseSeeder`.
+## Technology stack
 
-### Administrador
+| Area | Technologies |
+|---|---|
+| Backend | PHP 8.3+, Laravel 13 |
+| Database | MySQL or the local database configured in `.env` |
+| Views and UI | Blade, Bootstrap 5, Font Awesome |
+| ORM and architecture | Eloquent ORM, MVC, Eloquent Observers |
+| Tooling | Composer, Vite, Laravel Boost, PHPUnit |
 
-- **E-mail:** admin@empresa.com
-- **Senha:** senha123
-- **Perfil:** Administrador
-- **Permissões:** acesso total ao sistema.
+## Run locally
 
-### Técnico
+### Requirements
 
-- **E-mail:** tecnico@empresa.com
-- **Senha:** senha123
-- **Perfil:** Técnico
-- **Permissões:** operações de empréstimos e devoluções.
+- PHP 8.3 or newer.
+- Composer.
+- Node.js and npm.
+- MySQL, or another database configured in the local `.env` file.
 
----
-
-## Tecnologias Utilizadas
-
-- Laravel 13
-- PHP 8.3+
-- Bootstrap 5
-- Blade
-- MySQL
-- Laragon
-- Font Awesome
-- Laravel Boost
-
----
-
-## Instalação
-
-### Clonar o repositório
+### Install
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/osacra/IT_Asset_Manager.git
 cd IT_Asset_Manager
-```
-
-### Instalar dependências
-
-```bash
 composer install
-```
-
-### Configurar ambiente
-
-```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-### Configurar o banco de dados
-
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=it_asset_manager
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-### Executar migrations e seeders
+Configure the database connection in `.env`, then run the migrations and local seeders:
 
 ```bash
 php artisan migrate --seed
-```
-
-### Instalar o Laravel Boost
-
-```bash
-php artisan boost:install
-```
-
-Durante a instalação selecione:
-
-- guidelines
-- skills
-- mcp (opcional)
-
-### Executar o projeto
-
-```bash
+npm install
+npm run build
 php artisan serve
 ```
 
-Acesse:
+Open `http://127.0.0.1:8000` in the browser.
 
-```
-http://127.0.0.1:8000
-```
+The seeders create local demonstration users. Their credentials are intentionally not reproduced in this README; inspect or customize the seeders in a local environment before sharing a demo instance. Never reuse development passwords in production.
 
----
-
-## Estrutura do Projeto
+## Project structure
 
 ```text
-IT_Asset_Manager/
-├── .boost/
-│   └── skills/
-├── app/
-├── database/
-├── resources/
-├── routes/
-├── tests/
-├── README.md
-├── RELATORIO.md
-├── PLANO_IMPLEMENTACAO.md
-└── .env
+app/                  Application models, controllers and domain logic
+database/             Migrations and local seeders
+resources/             Blade views and frontend assets
+routes/                Web and authentication routes
+tests/                 Automated tests
+README.md              Setup and architecture documentation
+PLANO_IMPLEMENTACAO.md Implementation plan
+RELATORIO.md           Development report
 ```
 
----
+## Engineering notes
 
-## Regras de Negócio
+The application keeps domain behavior close to the Laravel model and service boundaries. Eloquent Observers provide an audit trail for asset movements, while authorization rules separate administrator capabilities from technician workflows. The project also documents the implementation plan and the reasoning behind the MVP scope.
 
-### Controle de Acesso
+## Roadmap
 
-**Administrador**
-
-- CRUD completo
-- Gerenciamento de usuários
-- Exclusão de registros
-
-**Técnico**
-
-- Consulta de cadastros
-- Registro de empréstimos
-- Registro de devoluções
-
-### Ativos
-
-- Um ativo pertence a uma categoria.
-- Apenas um empréstimo ativo por ativo.
-- O status é atualizado automaticamente.
-
-### Empréstimos
-
-Ao criar um empréstimo:
-
-- Status → **Em uso**
-
-Ao registrar uma devolução:
-
-- Data de devolução preenchida.
-- Status → **Disponível**.
-- Histórico atualizado.
-
----
-
-## Auditoria
-
-As movimentações são registradas automaticamente utilizando **Eloquent Observers**.
-
----
-
-## Documentação
-
-- `README.md`
-- `PLANO_IMPLEMENTACAO.md`
-- `RELATORIO.md`
-- `.boost/skills/`
+- Expand feature and authorization test coverage.
+- Add searchable and exportable audit reports.
+- Improve validation and user feedback for edge cases.
+- Add CI for PHP tests and frontend build verification.
+- Publish a controlled demo environment with isolated credentials.
