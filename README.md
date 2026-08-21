@@ -1,65 +1,66 @@
 # IT Asset Manager
 
-IT Asset Manager is a Laravel application for controlling IT assets, loans, returns and movement history. It was designed to replace fragmented spreadsheet-based workflows with a system that provides traceability, role-based access and explicit business rules.
+O IT Asset Manager é uma aplicação Laravel para controlar ativos de TI, empréstimos, devoluções e histórico de movimentações. O sistema substitui fluxos fragmentados baseados em planilhas por uma aplicação com rastreabilidade, controle de acesso por papéis e regras de negócio explícitas.
 
-## Domain preview
+## Prévia do domínio
 
-![IT Asset Manager domain flow](docs/screenshots/domain-flow.png)
+![Fluxo do domínio do IT Asset Manager](docs/screenshots/domain-flow.png)
 
-The diagram summarizes the central workflow: authenticated users operate on assets, employees and loans, while returns update availability and movement history is recorded for auditability.
+O diagrama resume o fluxo central: usuários autenticados operam sobre ativos, funcionários e empréstimos; as devoluções atualizam a disponibilidade e o histórico de movimentações registra as alterações para fins de auditoria.
 
-## Dashboard preview
+## Prévia do dashboard
 
-![IT Asset Manager dashboard](docs/screenshots/dashboard.webp)
+![Dashboard do IT Asset Manager](docs/screenshots/dashboard.webp)
 
-This local preview uses seeded demonstration data and shows the inventory summary, recent loans and movement history. It is intended for portfolio inspection only; the credentials and data belong to a local development environment.
+A prévia local usa dados de demonstração gerados pelos seeders e mostra o resumo do inventário, empréstimos recentes e histórico de movimentações. Ela serve apenas para inspeção do portfólio; credenciais e dados pertencem a um ambiente local de desenvolvimento.
 
-## What the system solves
+## Problema resolvido
 
-The application centralizes the lifecycle of notebooks, monitors and other IT assets. It records who is responsible for an asset, when it was borrowed, when it was returned and which actions changed its state.
+A aplicação centraliza o ciclo de vida de notebooks, monitores e outros ativos de TI. Ela registra o responsável por cada ativo, quando ele foi emprestado, quando foi devolvido e quais ações alteraram seu estado.
 
-## Main capabilities
+## Principais capacidades
 
-- Asset, category and employee management.
-- Loan and return workflows with automatic status changes.
-- Role-based access control for administrators and technicians.
-- Authentication and protected application routes.
-- Movement history and audit records through Eloquent Observers.
-- Seeded local data for a reproducible demonstration environment.
-- MVC organization following Laravel conventions.
+- Gerenciamento de ativos, categorias e funcionários.
+- Fluxos de empréstimo e devolução com alteração automática de status.
+- Controle de acesso por papéis para administradores e técnicos.
+- Autenticação e rotas protegidas.
+- Histórico de movimentações e registros de auditoria por meio de Eloquent Observers.
+- Dados locais gerados por seeders para uma demonstração reproduzível.
+- Organização MVC seguindo as convenções do Laravel.
 
-## Business rules
+## Regras de negócio
 
-| Domain rule | Expected behavior |
+| Regra | Comportamento esperado |
 |---|---|
-| Asset ownership | Every asset belongs to an asset category. |
-| Active loan | An asset cannot have more than one active loan. |
-| New loan | The asset status changes to **In use**. |
-| Return | The return date is recorded and the asset becomes **Available**. |
-| Audit | Asset movements are recorded in the history. |
-| Technician role | Technicians can consult records and operate loans and returns. |
-| Administrator role | Administrators have full CRUD and user-management access. |
+| Pertencimento do ativo | Todo ativo pertence a uma categoria. |
+| Empréstimo ativo | Um ativo não pode ter mais de um empréstimo ativo. |
+| Novo empréstimo | O status do ativo muda para **Em uso**. |
+| Devolução | A data de devolução é registrada e o ativo volta para **Disponível**. |
+| Auditoria | As movimentações do ativo são registradas no histórico. |
+| Papel técnico | Técnicos podem consultar registros e operar empréstimos e devoluções. |
+| Papel administrador | Administradores têm acesso completo a CRUD e gerenciamento de usuários. |
 
-## Technology stack
+## Stack tecnológica
 
-| Area | Technologies |
+| Área | Tecnologias |
 |---|---|
-| Backend | PHP 8.3+, Laravel 13 |
-| Database | MySQL or the local database configured in `.env` |
-| Views and UI | Blade, Bootstrap 5, Font Awesome |
-| ORM and architecture | Eloquent ORM, MVC, Eloquent Observers |
-| Tooling | Composer, Vite, Laravel Boost, PHPUnit |
+| Backend | PHP 8.3 ou superior, Laravel 13 |
+| Banco padrão | SQLite configurado no `.env.example` |
+| Banco alternativo | MySQL ou outro banco compatível configurado no `.env` |
+| Views e interface | Blade, Bootstrap 5, Font Awesome |
+| ORM e arquitetura | Eloquent ORM, MVC, Eloquent Observers |
+| Ferramentas | Composer, Vite, Laravel Boost, PHPUnit |
 
-## Run locally
+## Execução local
 
-### Requirements
+### Requisitos
 
-- PHP 8.3 or newer.
+- PHP 8.3 ou superior.
 - Composer.
-- Node.js and npm.
-- MySQL, or another database configured in the local `.env` file.
+- Node.js e npm.
+- SQLite, que é o banco padrão do ambiente de exemplo, ou MySQL/outro banco configurado manualmente.
 
-### Install
+### Instalação rápida
 
 ```bash
 git clone https://github.com/osacra/IT_Asset_Manager.git
@@ -67,42 +68,72 @@ cd IT_Asset_Manager
 composer install
 cp .env.example .env
 php artisan key:generate
-```
-
-Configure the database connection in `.env`, then run the migrations and local seeders:
-
-```bash
 php artisan migrate --seed
 npm install
 npm run build
 php artisan serve
 ```
 
-Open `http://127.0.0.1:8000` in the browser.
+Abra `http://127.0.0.1:8000` no navegador. Os seeders criam usuários locais de demonstração. As credenciais não são reproduzidas neste README; inspecione ou personalize os seeders em um ambiente local antes de compartilhar uma instância de demonstração. Nunca reutilize senhas de desenvolvimento em produção.
 
-The seeders create local demonstration users. Their credentials are intentionally not reproduced in this README; inspect or customize the seeders in a local environment before sharing a demo instance. Never reuse development passwords in production.
+### Usando MySQL
 
-## Project structure
+O `.env.example` usa SQLite por padrão. Para usar MySQL, altere as variáveis de banco no `.env`:
 
-```text
-app/                  Application models, controllers and domain logic
-database/             Migrations and local seeders
-resources/             Blade views and frontend assets
-routes/                Web and authentication routes
-tests/                 Automated tests
-README.md              Setup and architecture documentation
-PLANO_IMPLEMENTACAO.md Implementation plan
-RELATORIO.md           Development report
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=it_asset_manager
+DB_USERNAME=root
+DB_PASSWORD=sua_senha
 ```
 
-## Engineering notes
+Crie o banco previamente, confirme a conexão e execute:
 
-The application keeps domain behavior close to the Laravel model and service boundaries. Eloquent Observers provide an audit trail for asset movements, while authorization rules separate administrator capabilities from technician workflows. The project also documents the implementation plan and the reasoning behind the MVP scope.
+```bash
+php artisan migrate --seed
+```
+
+### Scripts oficiais
+
+O `composer.json` oferece atalhos para os fluxos mais comuns:
+
+| Comando | Finalidade |
+|---|---|
+| `composer run setup` | Instala dependências, prepara o ambiente, executa migrations e gera a build frontend |
+| `composer run dev` | Inicia servidor Laravel, fila, logs e Vite em paralelo |
+| `composer run test` | Limpa a configuração e executa os testes PHPUnit |
+| `npm run dev` | Inicia o Vite para desenvolvimento frontend |
+| `npm run build` | Gera os assets frontend de produção |
+
+Para desenvolvimento contínuo, depois da instalação e configuração do banco, prefira:
+
+```bash
+composer run dev
+```
+
+## Estrutura do projeto
+
+```text
+app/                   Models, controllers e lógica de domínio
+database/              Migrations e seeders locais
+resources/             Views Blade e assets frontend
+routes/                Rotas web e de autenticação
+tests/                 Testes automatizados
+README.md              Documentação de instalação e arquitetura
+PLANO_IMPLEMENTACAO.md Plano de implementação
+RELATORIO.md           Relatório de desenvolvimento
+```
+
+## Notas de engenharia
+
+O sistema mantém o comportamento de domínio próximo aos modelos Laravel e às fronteiras de serviço. Eloquent Observers fornecem o histórico de auditoria das movimentações, enquanto as regras de autorização separam as capacidades administrativas dos fluxos de técnicos. O projeto também documenta o plano de implementação e as decisões relacionadas ao escopo do MVP.
 
 ## Roadmap
 
-- Expand feature and authorization test coverage.
-- Add searchable and exportable audit reports.
-- Improve validation and user feedback for edge cases.
-- Add CI for PHP tests and frontend build verification.
-- Publish a controlled demo environment with isolated credentials.
+- Ampliar a cobertura de testes de funcionalidades e autorização.
+- Adicionar relatórios de auditoria pesquisáveis e exportáveis.
+- Melhorar validações e mensagens para casos de borda.
+- Adicionar CI para testes PHP e validação da build frontend.
+- Publicar um ambiente de demonstração controlado com credenciais isoladas.
